@@ -1,0 +1,90 @@
+package JAVACOURSE_NO2;
+import edu.duke.StorageResource;
+import edu.duke.DirectoryResource;
+import edu.duke.FileResource;
+import java.util.*;
+
+/**
+ * Write a description of CaeserCipher here.
+ * 
+ * @author (Marwan Ayman) 
+ * @version (19 FEBRUARY)
+ */
+public class CaeserCipher {
+public String encrypt(String input, int key){
+        //post shift
+        String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String alphabetSmall=alphabet.toLowerCase();
+        String shiftedAlphabet= alphabet.substring(key)+alphabet.substring(0, key);
+        String shiftedAlphabetSmall=alphabetSmall.substring(key)+alphabetSmall.substring(0, key);
+        StringBuilder encrypted= new StringBuilder(input);
+      for(int i=0; i< encrypted.length();i++){
+        char ch =encrypted.charAt(i);
+         if(Character.isUpperCase(ch)){
+            int index=alphabet.indexOf(ch);
+            char newCh= shiftedAlphabet.charAt(index);
+          encrypted.setCharAt(i,newCh);
+       }
+       if(Character.isLowerCase(ch)){
+            int index=alphabetSmall.indexOf(ch);
+            char newCh= shiftedAlphabetSmall.charAt(index);
+            encrypted.setCharAt(i,newCh);
+        }
+       
+      }   
+     return encrypted.toString();
+    
+    
+    }
+   public void testCaesar(){
+       FileResource fr = new FileResource();
+       String message = fr.asString();
+       int key=17;
+       String encrypted = encrypt(message, key);
+       System.out.println("key is " + key + "\n" + encrypted);
+
+}   
+   public String encryptTwoKeys(String input, int key, int key1){
+    StringBuilder encrypted=new StringBuilder(input);
+    String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String alphabetSmall=alphabet.toLowerCase();
+    String shiftedAlphabet= alphabet.substring(key)+alphabet.substring(0, key);
+    String shiftedAlphabetSmall=alphabetSmall.substring(key)+alphabetSmall.substring(0, key);
+    String _1shiftedAlphabet= alphabet.substring(key1)+alphabet.substring(0, key1);
+    String _1shiftedAlphabetSmall=alphabetSmall.substring(key1)+alphabetSmall.substring(0, key1);
+     for(int i=0;  i<encrypted.length() ;i+=2){
+      char ch =encrypted.charAt(i);
+         if(Character.isUpperCase(ch)){
+            int index=alphabet.indexOf(ch);
+            char newCh= shiftedAlphabet.charAt(index);
+          encrypted.setCharAt(i,newCh);
+       }
+       if(Character.isLowerCase(ch)){
+            int index=alphabetSmall.indexOf(ch);
+            char newCh= shiftedAlphabetSmall.charAt(index);
+            encrypted.setCharAt(i,newCh);
+        }
+       
+      }   
+     
+      for(int i=1; i<encrypted.length() ;i+=2){
+        char ch =encrypted.charAt(i);
+         if(Character.isUpperCase(ch)){
+            int index=alphabet.indexOf(ch);
+            char newCh= _1shiftedAlphabet.charAt(index);
+          encrypted.setCharAt(i,newCh);
+       }
+       if(Character.isLowerCase(ch)){
+            int index=alphabetSmall.indexOf(ch);
+            char newCh= _1shiftedAlphabetSmall.charAt(index);
+            encrypted.setCharAt(i,newCh);
+        }
+       
+      }   
+     return encrypted.toString();
+    }
+}
+ 
+
+
+
